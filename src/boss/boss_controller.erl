@@ -22,7 +22,8 @@ mochiweb_request(Req) ->
     case Req:get(path) of
         "/static/"++File -> Req:serve_file(File, "static");
         _ -> Req:respond(process_request(Req))
-    end.
+    end,
+	boss_log:log(Req).
 
 process_request(Req) ->
     Result = case parse_path(Req:get(path)) of
